@@ -1,0 +1,59 @@
+box: nodesource/jessie:6.7.0
+
+build:
+    steps:
+    - bundle-install:
+        cwd: /usr/src/app/
+
+    - add-ssh-key:
+        keyname: GITHUB_KEY
+
+    - script:
+        name: ssh-keyscan
+        code: ssh-keyscan github.com >> /root/.ssh/known_hosts
+
+    - script:
+        name: set env to development
+        code: export NODE_ENV=development
+
+    - script:
+        name: Export NPM Token
+        code: export NPM_TOKEN=$NPM_TOKEN
+
+    - npm-install:
+        use-cache: false
+
+    - script:
+        name: run linters
+        code: npm run lint
+
+    - script:
+        name: run tests
+        code: npm run coverage
+
+    - script:
+        name: build production resources
+        code: npm run build
+
+    - script:
+        name: copy files to $WERCKER_OUTPUT_DIR
+        code: ./wercker_scripts/copy_files_to_wercker_output_dir.sh
+
+quay:
+    steps:
+    - script:
+        name: copy files to $WERCKER_SOURCE_DIR
+        code: ./wercker_scripts/copy_files_to_app_source_dir.sh
+
+    - script:
+        name: set env to production
+        code: export NODE_ENV='production'
+
+    - internal/docker-push:
+        username: $QUAY_USERNAME
+        password: $QUAY_PASSWORD
+        tag: $WERCKER_GIT_COMMIT
+        cmd: "npm run serve"
+        ports: "80"
+        repository: quay.io/ndustrialio/feed-admin-app
+        registry: https://quay.io

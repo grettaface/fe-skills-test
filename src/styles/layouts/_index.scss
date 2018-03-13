@@ -1,0 +1,66 @@
+.main {
+  padding: $default-spacing;
+}
+
+.main-content {
+  display: flex;
+  flex-direction: row;
+
+  @media screen and (min-width: 700px) {
+    flex-direction: column;
+  }
+}
+
+.app-information__title {
+  font-size: 2rem;
+  font: $font-primary;
+  color: var(--nd-color-type);
+}
+
+.powered-by {
+  font-size: 0.5rem;
+  font-weight: 400;
+  color: var(--nd-color-type);
+  display: flex;
+  align-items: center;
+  padding: $default-spacing 0;
+
+  img {
+    padding-left: $default-spacing;
+  }
+}
+
+.organizations-selector,
+.facilities-selector {
+  flex: 1;
+}
+
+.organizations-selector {
+  @media screen and (min-width:700px) {
+    // padding-right: $default-spacing * 0.5;
+    padding-bottom: $default-spacing * 2;
+  }
+}
+
+.facilities-selector {
+
+  padding-top: $default-spacing;
+  border-top: 1px solid var(--nd-color-border);
+
+  @media screen and (min-width:700px) {
+    // padding-left: $default-spacing * 0.5;
+    padding-top: 0;
+    border: 0;
+  }
+}
+
+.welcome-title {
+  font-weight: bold;
+  font-size: 2rem;
+  padding-bottom: $default-spacing;
+}
+
+.welcome-description {
+  color: var(--nd-color-text);
+  padding-bottom: $default-spacing;
+}

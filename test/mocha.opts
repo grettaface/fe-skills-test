@@ -1,0 +1,1 @@
+--require babel-register --require mock-local-storage --require test/config/mocha-setup
