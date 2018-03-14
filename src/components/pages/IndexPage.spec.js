@@ -39,7 +39,7 @@ describe('IndexPage', function() {
   it('should render', function() {
     expect(wrapper).to.not.be.empty;
   });
-
+ 
   describe('constructor', function() {
     it('should properly set my starting state', function() {
 
