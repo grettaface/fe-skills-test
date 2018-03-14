@@ -35,32 +35,32 @@ describe('IndexPage', function() {
   });
 
   // --------- Fill in below ---------- //
-  
+
   it('should render', function() {
     expect(wrapper).to.not.be.empty;
   });
 
   describe('constructor', function() {
     it('should properly set my starting state', function() {
-      
+
     });
   });
 
   describe('componentDidMount', function() {
     it('should properly set the state for facilities and organizations', function() {
-      
+
     });
   });
 
   describe('organization selected', function() {
     it('should properly set the state for facilities and organizations', function() {
-      
+
     });
   });
 
   describe('facility filtering', function() {
     it('should properly filter the facilities based on an org', function() {
-      
+
     });
   });
 });
