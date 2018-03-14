@@ -4,10 +4,10 @@
 
 .main-content {
   display: flex;
-  flex-direction: row;
+  flex-direction: column;
 
   @media screen and (min-width: 700px) {
-    flex-direction: column;
+    flex-direction: row;
   }
 }
 
@@ -37,8 +37,7 @@
 
 .organizations-selector {
   @media screen and (min-width:700px) {
-    // padding-right: $default-spacing * 0.5;
-    padding-bottom: $default-spacing * 2;
+    padding-right: $default-spacing * 0.5;
   }
 }
 
@@ -48,19 +47,8 @@
   border-top: 1px solid var(--nd-color-border);
 
   @media screen and (min-width:700px) {
-    // padding-left: $default-spacing * 0.5;
+    padding-left: $default-spacing * 0.5;
     padding-top: 0;
     border: 0;
   }
-}
-
-.welcome-title {
-  font-weight: bold;
-  font-size: 2rem;
-  padding-bottom: $default-spacing;
-}
-
-.welcome-description {
-  color: var(--nd-color-text);
-  padding-bottom: $default-spacing;
 }

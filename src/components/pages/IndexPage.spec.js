@@ -34,41 +34,33 @@ describe('IndexPage', function() {
     sandbox.restore();
   });
 
+  // --------- Fill in below ---------- //
+  
   it('should render', function() {
     expect(wrapper).to.not.be.empty;
   });
 
   describe('constructor', function() {
     it('should properly set my starting state', function() {
-      const {facilities, organizations, filteredFacilities} = wrapper.state();
-      expect(facilities).to.not.be.undefined;
-      expect(organizations).to.not.be.undefined;
-      expect(filteredFacilities).to.not.be.undefined;
+      
     });
   });
 
   describe('componentDidMount', function() {
     it('should properly set the state for facilities and organizations', function() {
-      wrapper.update();
-      const {facilities, organizations} = wrapper.state();
-      expect(facilities.length).to.equal(facilities.length);
-      expect(organizations.length).to.be.above(0);
+      
     });
   });
 
   describe('organization selected', function() {
     it('should properly set the state for facilities and organizations', function() {
-      const facilityCache = wrapper.state().filteredFacilities;
-      wrapper.instance().organizationSelected(sampleOrg);
-      wrapper.update();
-      expect(wrapper.state().filteredFacilities).to.not.equal(facilityCache);
+      
     });
   });
 
   describe('facility filtering', function() {
     it('should properly filter the facilities based on an org', function() {
-      expect(wrapper.instance().filterFacilities(facilities, sampleOrg).length)
-        .to.be.below(facilities.length);
+      
     });
   });
 });
