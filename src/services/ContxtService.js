@@ -1,13 +1,24 @@
-import ContxtSDK from '@ndustrial/contxt-sdk';
+import facilities from '../../test/fixtures/facilities.json';
 
-const contxtSDK = new ContxtSDK({
-  config: {
-    auth: {
-      clientId: 'ge9BPBhkYhuJLA2MNv3H7ruHiM3ZWhSO',
-      env: 'staging'
+const contxtSDK = {
+  facilities: {
+    getAll: function() {
+      return new Promise(function (resolve, reject) {
+        resolve(facilities);
+      })
     }
   },
-  sessionType: 'auth0WebAuth'
-});
+  auth: {
+    isAuthenticated: function(){return true;},
+    getProfile: function(){
+      return new Promise(function (resolve, reject) {
+        resolve({
+          nickname: "Test user",
+          picture: null
+        });
+      })
+    }
+  }
+}
 
 export default contxtSDK;
