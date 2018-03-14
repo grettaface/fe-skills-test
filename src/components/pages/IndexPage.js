@@ -1,26 +1,46 @@
 import React from 'react';
 import contxtSDK from '../../services/ContxtService.js';
 import { Dropdown, List } from '@ndustrial/nd-react-common';
-import { find } from 'lodash';
+import { uniqBy } from 'lodash';
 
 export default class IndexPage extends React.Component {
-  constructor() {
-    super();
+  constructor(props) {
+    super(props);
+    this.state = {
+      facilities: [],
+      organizations: []
+    }
   }
 
   componentDidMount() {
     contxtSDK.facilities.getAll().then((res) => {
       console.log('%c ---- Sample facilities request loaded with the SDK ---- ', 'background: green; color: white');
-      console.table(res);
+      console.log(res);
+      
+      const facilities = 
+        res.map((facility) => {
+          return { id: facility.id, label:facility.name}        
+        })
+
+      let organizations = 
+        res.map((facility) => {
+          return { id: facility.Organization.id, label: facility.Organization.name}
+        })
+
+      organizations = uniqBy(organizations, "id");
+
+      this.setState({facilities, organizations});
     });
   }
 
   renderOrganizations() {
+      return <Dropdown data={this.state.organizations}/>
     // Render organizations here
     // required props are {data} and data requires each item to have an id and label
   }
 
   renderFacilities() {
+      return <List data={this.state.facilities}/>
     // Render facilities here with <List/>
     // required props are {data} and data requires each item to have an id and label
   }
