@@ -40,6 +40,7 @@ Run `npm start` and view the app at `http://localhost:5000`.
 
 ### 5. Update the syling to match the design
 - Compare your layout to the provided design and update yours to match
+
 ![mockup](src/images/skills-test-mockup.jpg =800x)
 
 ### 6. Complete at least 2 out of the 5 provided test options
