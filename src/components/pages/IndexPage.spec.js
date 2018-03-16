@@ -39,28 +39,31 @@ describe('IndexPage', function() {
   it('should render', function() {
     expect(wrapper).to.not.be.empty;
   });
- 
+
   describe('constructor', function() {
     it('should properly set my starting state', function() {
-
+      expect(wrapper.state('facilities').length).to.equal(110);
     });
   });
 
   describe('componentDidMount', function() {
-    it('should properly set the state for facilities and organizations', function() {
-
+    it('should properly set the state for organizations', function() {
+      expect(wrapper.state('organizations').length).to.equal(3);
+    });
+    it('should properly set the state for facilities', function() {
+    expect(wrapper.state('facilities').length).to.equal(110);
     });
   });
 
   describe('organization selected', function() {
-    it('should properly set the state for facilities and organizations', function() {
-
+    it('should properly set the state for organization selected', function() {
+      expect(wrapper.state('selectedOrganization').label).to.equal('Novozymes');
     });
   });
 
   describe('facility filtering', function() {
     it('should properly filter the facilities based on an org', function() {
-
+      expect(wrapper.state('facilities')).to.not.equal(wrapper.state('filtefilteredOrganizations'))
     });
   });
 });
