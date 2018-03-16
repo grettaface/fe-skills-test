@@ -9,16 +9,14 @@ export default class IndexPage extends React.Component {
     this.state = {
       facilities: [],
       organizations: [],
-      filteredOrganizations: [],
-      selectedOrganization: ""
+      filteredFacilities: [],
+      selectedOrganization: []
     }
     this.handleOrgChange = this.handleOrgChange.bind(this);
   }
 
-  componentWillMount() {
+  componentDidMount() {
     contxtSDK.facilities.getAll().then((res) => {
-      // console.log('%c ---- Sample facilities request loaded with the SDK ---- ', 'background: green; color: white');
-      // console.table(res);
 
       const facilities = res.map((facility) => {
         return { id: facility.id, label:facility.name, organization_id: facility.organization_id }
@@ -32,23 +30,23 @@ export default class IndexPage extends React.Component {
 
       let selectedOrganization = organizations[2];
 
-      let filteredOrganizations = facilities.filter(function(facility) {
+      let filteredFacilities = facilities.filter(function(facility) {
         return selectedOrganization.id === facility.organization_id
       });
 
-      this.setState({facilities, organizations, selectedOrganization, filteredOrganizations});
+      this.setState({facilities, organizations, selectedOrganization, filteredFacilities});
     });
   }
 
 
 
-  handleOrgChange(value) {
-    let filteredOrganizations = this.state.facilities.filter(function(facility) {
-      return value.id === facility.organization_id
+  handleOrgChange(org) {
+    let filteredFacilities = this.state.facilities.filter(function(facility) {
+      return org.id === facility.organization_id
     });
     this.setState({
-      selectedOrganization: value,
-      filteredOrganizations});
+      selectedOrganization: org,
+      filteredFacilities});
   }
 
 
@@ -63,9 +61,6 @@ export default class IndexPage extends React.Component {
     }
 
     var divFacilities = {
-      position: 'relative',
-      width: '100%',
-      clear:  'left',
       padding: '10px 0 0 0',
     }
 
@@ -78,13 +73,13 @@ export default class IndexPage extends React.Component {
           <div style={divOrganizations}>
             <Dropdown
               data={this.state.organizations}
-              value={this.state.organizations.name}
+              name={"Organizations"}
               callback={this.handleOrgChange}
             />
           </div>
           <div style={divFacilities}>
             <List
-              data={this.state.filteredOrganizations}
+              data={this.state.filteredFacilities}
             />
           </div>
         </div>
