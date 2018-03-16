@@ -8,52 +8,80 @@ export default class IndexPage extends React.Component {
     super(props);
     this.state = {
       facilities: [],
-      organizations: []
+      organizations: [],
+      filteredFacilities: [],
+      selectedOrganization: []
     }
+    this.handleOrgChange = this.handleOrgChange.bind(this);
   }
 
   componentDidMount() {
     contxtSDK.facilities.getAll().then((res) => {
-      console.log('%c ---- Sample facilities request loaded with the SDK ---- ', 'background: green; color: white');
-      console.log(res);
-      
-      const facilities = 
-        res.map((facility) => {
-          return { id: facility.id, label:facility.name}        
-        })
 
-      let organizations = 
-        res.map((facility) => {
-          return { id: facility.Organization.id, label: facility.Organization.name}
-        })
+      const facilities = res.map((facility) => {
+        return { id: facility.id, label:facility.name, organization_id: facility.organization_id }
+      });
+
+      let organizations = res.map((facility) => {
+        return { id: facility.Organization.id, label: facility.Organization.name }
+      });
 
       organizations = uniqBy(organizations, "id");
 
-      this.setState({facilities, organizations});
+      let selectedOrganization = organizations[2];
+
+      let filteredFacilities = facilities.filter(function(facility) {
+        return selectedOrganization.id === facility.organization_id
+      });
+
+      this.setState({facilities, organizations, selectedOrganization, filteredFacilities});
     });
   }
 
-  renderOrganizations() {
-      return <Dropdown data={this.state.organizations}/>
-    // Render organizations here
-    // required props are {data} and data requires each item to have an id and label
+
+
+  handleOrgChange(org) {
+    let filteredFacilities = this.state.facilities.filter(function(facility) {
+      return org.id === facility.organization_id
+    });
+    this.setState({
+      selectedOrganization: org,
+      filteredFacilities});
   }
 
-  renderFacilities() {
-      return <List data={this.state.facilities}/>
-    // Render facilities here with <List/>
-    // required props are {data} and data requires each item to have an id and label
-  }
+
 
   render() {
+    var divContainer = {
+      display: 'block'
+    }
+
+    var divOrganizations = {
+      width: '50%',
+    }
+
+    var divFacilities = {
+      padding: '10px 0 0 0',
+    }
+
     return (
       <div className="main">
         <div className="welcome-title">Welcome to the skills test!</div>
         <div className="welcome-description">There are no right or wrong answers and no traps set, this is just meant to see how you approach a problem. Do what you think is best and feel free to ask questions</div>
         {/* Main Content */}
-        <div className="main-content">
-          {this.renderOrganizations()}
-          {this.renderFacilities()}
+        <div className="main-content" style={divContainer}>
+          <div style={divOrganizations}>
+            <Dropdown
+              data={this.state.organizations}
+              name={"Organizations"}
+              callback={this.handleOrgChange}
+            />
+          </div>
+          <div style={divFacilities}>
+            <List
+              data={this.state.filteredFacilities}
+            />
+          </div>
         </div>
       </div>
     );
