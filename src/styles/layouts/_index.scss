@@ -5,18 +5,20 @@
 .main-content {
   display: flex;
   flex-direction: column;
-
-  @media screen and (min-width: 700px) {
-    flex-direction: row;
-  }
 }
 
 .app-information__title {
+  padding-top: ($default-spacing * 2);
   font-size: 2rem;
   font: $font-primary;
   color: var(--nd-color-type);
 }
 
+.app-information__description {
+  @include rem(14);
+  line-height: 1.25rem;
+  padding: ($default-spacing * 2) 0;
+}
 .powered-by {
   font-size: 0.5rem;
   font-weight: 400;
@@ -36,29 +38,18 @@
 }
 
 .organizations-selector {
-  @media screen and (min-width:700px) {
+  @media screen and (min-width: 700px) {
     padding-right: $default-spacing * 0.5;
   }
 }
 
 .facilities-selector {
-
   padding-top: $default-spacing;
   border-top: 1px solid var(--nd-color-border);
 
-  @media screen and (min-width:700px) {
+  @media screen and (min-width: 700px) {
     padding-left: $default-spacing * 0.5;
     padding-top: 0;
     border: 0;
   }
-}
-
-.welcome-title {
-  font-weight: bold;
-  font-size: 2rem;
-  padding-bottom: $default-spacing;
-}
-
-.welcome-description {
-  padding-bottom: $default-spacing;
 }

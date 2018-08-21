@@ -1,23 +1,21 @@
-const webpack = require('webpack');
-const path = require('path');
-const glob = require('glob');
-const ImageminPlugin = require('imagemin-webpack-plugin').default;
-const CopyWebpackPlugin = require('copy-webpack-plugin');
-const ExtractTextPlugin = require('extract-text-webpack-plugin');
-const HtmlWebpackPlugin = require('html-webpack-plugin');
+const webpack = require("webpack");
+const path = require("path");
+const glob = require("glob");
+const ImageminPlugin = require("imagemin-webpack-plugin").default;
+const HtmlWebpackPlugin = require("html-webpack-plugin");
 
-const clientConfig = require('./config');
+const clientConfig = require("./config");
 const port = process.env.PORT || 5000;
 
 const Paths = {
-  DIST: path.join(__dirname, 'dist'),
-  ENTRY: path.join(__dirname, 'src', 'app-client.js'),
-  NODE_MODULES: path.resolve(__dirname, 'node_modules'),
+  DIST: path.join(__dirname, "dist"),
+  ENTRY: path.join(__dirname, "src", "app-client.js"),
+  NODE_MODULES: path.resolve(__dirname, "node_modules")
 };
 
 function getDevTool() {
-  if (process.env.NODE_ENV !== 'production') {
-    return 'source-map'; // enables source map
+  if (process.env.NODE_ENV !== "production") {
+    return "source-map"; // enables source map
   }
 
   return false;
@@ -25,14 +23,11 @@ function getDevTool() {
 
 module.exports = {
   entry: {
-    'static/js/bundle.js': [
-      'whatwg-fetch',
-      Paths.ENTRY,
-    ],
+    "static/js/bundle.js": ["whatwg-fetch", Paths.ENTRY]
   },
   output: {
     path: Paths.DIST,
-    filename: '[name]',
+    filename: "[name]"
   },
   devtool: getDevTool(),
   devServer: {
@@ -40,50 +35,56 @@ module.exports = {
     hot: true,
     inline: true,
     port,
-    historyApiFallback: true,
+    historyApiFallback: true
   },
   module: {
     rules: [
       {
         test: /\.js$/,
-        exclude: [Paths.NODE_MODULES],
-        loader: ['react-hot-loader/webpack', 'babel-loader'],
+        exclude: /(node_modules)/,
+        loader: ["react-hot-loader/webpack", "babel-loader"]
       },
       {
         test: /\.xml$/,
-        use: 'raw-loader',
+        use: "raw-loader"
       },
       {
         test: /\.scss$/,
-        use: ['style-loader', 'css-loader', 'postcss-loader', 'sass-loader',]
+        use: [
+          "style-loader",
+          "css-loader",
+          { loader: "postcss-loader", options: { sourceMap: true } },
+          "resolve-url-loader",
+          { loader: "sass-loader", options: { sourceMap: true } }
+        ]
       },
+      {
+        test: /\.css$/,
+        use: ["style-loader", "css-loader"]
+      },
+      {
+        test: /\.(gif|png|jpg|svg|woff|woff2|ttf|eot)$/,
+        use: {
+          loader: "url-loader",
+          options: {
+            limit: 8192
+          }
+        }
+      }
     ]
   },
   plugins: [
     new webpack.DefinePlugin({
-      'process.env': {
-        NODE_ENV: JSON.stringify(process.env.NODE_ENV || 'development')
+      "process.env": {
+        NODE_ENV: JSON.stringify(process.env.NODE_ENV || "development")
       }
     }),
-    new CopyWebpackPlugin(
-      [
-        {
-          from: './src/data/**/*.js',
-          to: './data/',
-        },
-        {
-          from: './src/images/*.{jpg,jpeg,png,gif,svg}',
-          to: './static/images/',
-        },
-      ]
-    ),
-    new ImageminPlugin({ test: /\.(jpe?g|png|gif|svg)$/i }),
-    new ExtractTextPlugin('./static/styles/styles.css'),
+    new ImageminPlugin({ test: /\.(jpe?g|png|gif)$/i }),
     new webpack.NamedModulesPlugin(),
     new webpack.HotModuleReplacementPlugin(),
     new HtmlWebpackPlugin({
-      template: './src/views/index.ejs',
-      config: clientConfig,
-    }),
+      template: "./src/views/index.ejs",
+      config: clientConfig
+    })
   ]
 };

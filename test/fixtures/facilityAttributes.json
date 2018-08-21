@@ -1,0 +1,35 @@
+[
+  {
+    "id": "11845a79-f9c9-4f92-a49f-e36542a729b5",
+    "asset_type_id": "5f310899-d8f9-4dac-ae82-cedb2048a8ef",
+    "label": "Square Feet",
+    "units": "sqft",
+    "organization_id": null,
+    "description": "Approximate square footage of a facility",
+    "is_required": true,
+    "created_at": "2018-06-27T21:27:24.938Z",
+    "updated_at": "2018-06-27T21:27:24.938Z"
+  },
+  {
+    "id": "11845a79-f9c9-4f92-a49f-e36542a729b6",
+    "asset_type_id": "5f310899-d8f9-4dac-ae82-cedb2048a8ef",
+    "label": "Latitude",
+    "units": "degrees",
+    "organization_id": null,
+    "description": "Latitude of a facility",
+    "is_required": true,
+    "created_at": "2018-06-27T21:27:24.938Z",
+    "updated_at": "2018-06-27T21:27:24.938Z"
+  },
+  {
+    "id": "11845a79-f9c9-4f92-a49f-e36542a729b7",
+    "asset_type_id": "5f310899-d8f9-4dac-ae82-cedb2048a8ef",
+    "label": "Longitude",
+    "units": "degrees",
+    "organization_id": null,
+    "description": "Longitude of a facility",
+    "is_required": true,
+    "created_at": "2018-06-27T21:27:24.938Z",
+    "updated_at": "2018-06-27T21:27:24.938Z"
+  }
+]

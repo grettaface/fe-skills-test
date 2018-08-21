@@ -1,32 +1,28 @@
-
 ////////////////////
 //		VARIABLES		//
 ////////////////////
-@import 'variables/mixins';
-@import 'variables/typography';
-@import 'variables/globals';
-
+@import "variables/mixins";
+@import "variables/typography";
+@import "variables/globals";
 
 ////////////////
 //		BASE		//
 ////////////////
 
-@import 'base/colors';
-@import 'base/reset';
+@import "base/colors";
+@import "base/reset";
 
-@import '../../node_modules/@ndustrial/nd-react-common/dist/styles/components';
-@import 'base/typography';
-
+@import "../../node_modules/@ndustrial/nd-react-common/dist/styles/components";
+@import "base/typography";
 
 //////////////////
 //		LAYOUTS		//
 //////////////////
 
-@import 'layouts/index';
-@import 'layouts/layout';
-
+@import "layouts/index";
+@import "layouts/layout";
 
 //////////////////////
 //		COMPONENTS		//
 //////////////////////
-@import 'components/auth_callback';
+@import "components/auth_callback";

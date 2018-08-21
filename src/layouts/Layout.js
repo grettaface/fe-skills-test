@@ -1,9 +1,9 @@
-import React from 'react';
-import { Route, Switch } from 'react-router-dom';
-import PropTypes from 'prop-types';
-import { Header } from '@ndustrial/nd-react-common';
-import IndexPage from '../components/pages/IndexPage';
-import NotFoundPage from '../components/pages/NotFoundPage';
+import { Header } from "@ndustrial/nd-react-common";
+import PropTypes from "prop-types";
+import React from "react";
+import { Route, Switch } from "react-router-dom";
+import NotFound from "../components/NotFound";
+import IndexContainer from "../containers/Index";
 
 export default class Layout extends React.Component {
   static propTypes = {
@@ -12,7 +12,7 @@ export default class Layout extends React.Component {
       isAuthenticated: PropTypes.func.isRequired,
       logOut: PropTypes.func
     }).isRequired
-  }
+  };
 
   constructor(props) {
     super(props);
@@ -28,15 +28,14 @@ export default class Layout extends React.Component {
 
   componentDidMount() {
     if (this.props.auth.isAuthenticated()) {
-      return this.props.auth.getProfile()
-        .then((profile) => {
-          this.setState({
-            profile: {
-              profileImage: profile.picture,
-              userName: profile.nickname
-            }
-          });
+      return this.props.auth.getProfile().then(profile => {
+        this.setState({
+          profile: {
+            profileImage: profile.picture,
+            userName: profile.nickname
+          }
         });
+      });
     }
   }
 
@@ -46,15 +45,16 @@ export default class Layout extends React.Component {
 
   render() {
     return (
-      <div className='app-container'>
+      <div className="app-container">
         <Header
           profile={this.state.profile}
           {...this.props}
           auth={this.auth}
+          logoURL={require("../images/contxt_logo.svg")}
         />
         <Switch>
-          <Route path='/' exact={true} component={IndexPage} />
-          <Route render={() => <NotFoundPage/>}/>
+          <Route path="/" exact={true} component={IndexContainer} />
+          <Route render={() => <NotFound />} />
         </Switch>
       </div>
     );

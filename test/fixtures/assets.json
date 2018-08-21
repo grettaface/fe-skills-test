@@ -1,0 +1,29 @@
+[
+  {
+    "id": "64be7f73-35b1-4178-89c2-839fb78ec672",
+    "asset_type_id": "5f310899-d8f9-4dac-ae82-cedb2048a8ef",
+    "label": "Test Facility",
+    "description": "Test Facility Desciption",
+    "organization_id": "02efa741-a96f-4124-a463-ae13a704b8fc",
+    "created_at": "2016-07-21T11:30:28.211Z",
+    "updated_at": "2016-07-21T11:30:28.211Z"
+  },
+  {
+    "id": "64be7f73-35b1-4178-89c2-839fb78ec673",
+    "asset_type_id": "5f310899-d8f9-4dac-ae82-cedb2048a8ef",
+    "label": "Test Facility 2",
+    "description": "Test Facility Desciption",
+    "organization_id": "02efa741-a96f-4124-a463-ae13a704b8fc",
+    "created_at": "2016-07-21T11:30:28.211Z",
+    "updated_at": "2016-07-21T11:30:28.211Z"
+  },
+  {
+    "id": "64be7f73-35b1-4178-89c2-839fb78ec674",
+    "asset_type_id": "5f310899-d8f9-4dac-ae82-cedb2048a8ef",
+    "label": "Test Facility 3",
+    "description": "Test Facility Desciption",
+    "organization_id": "02efa741-a96f-4124-a463-ae13a704b8fc",
+    "created_at": "2016-07-21T11:30:28.211Z",
+    "updated_at": "2016-07-21T11:30:28.211Z"
+  }
+]

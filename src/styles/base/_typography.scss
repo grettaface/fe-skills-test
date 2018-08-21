@@ -33,7 +33,7 @@ html {
 
   &::after {
     @include rem(12);
-    font-family: 'icomoon';
+    font-family: "icomoon";
     content: "\e90f";
     position: absolute;
     display: flex;

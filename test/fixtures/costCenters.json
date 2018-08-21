@@ -1,0 +1,20 @@
+[
+  {
+    "createdAt": "2017-09-06T17:43:23.577Z",
+    "description": "foo bar",
+    "facilities": [],
+    "id": "c9dcac43-a662-4cba-b991-f374f94d4fa6",
+    "name": "Cost Center 1",
+    "organizationId": "02efa741-a96f-4124-a463-ae13a704b8fc",
+    "updated_at": "2017-09-06T17:43:23.577Z"
+  },
+  {
+    "createdAt": "2017-09-06T17:43:23.577Z",
+    "description": "another cost center",
+    "facilities": [],
+    "id": "cf557c89-d50f-471d-b533-564752373965",
+    "name": "Cost Center 1",
+    "organizationId": "02efa741-a96f-4124-a463-ae13a704b8fc",
+    "updated_at": "2017-09-06T17:43:23.577Z"
+  }
+]

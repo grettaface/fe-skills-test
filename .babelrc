@@ -5,9 +5,5 @@
       "plugins": ["istanbul"]
     }
   },
-  "ignore": [
-    "src/data",
-    "bundle.js",
-    "data/code.xml"
-  ]
+  "ignore": ["src/data", "bundle.js", "data/code.xml"]
 }

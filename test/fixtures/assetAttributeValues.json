@@ -1,0 +1,38 @@
+[
+  {
+    "id": "c642f239-8aa0-41c2-9ea3-911f4f069622",
+    "asset_id": "64be7f73-35b1-4178-89c2-839fb78ec672",
+    "asset_attribute_id": "7bdab562-a096-4a42-bba1-a27ace920219",
+    "value": "123412",
+    "effective_date": "2016-07-21T11:30:28.211Z",
+    "notes": null,
+    "created_at": "2016-07-21T11:30:28.211Z",
+    "updated_at": "2016-07-21T11:30:28.211Z",
+    "asset_label": "Test Facility 1",
+    "label": "Test 1"
+  },
+  {
+    "id": "c642f239-8aa0-41c2-9ea3-911f4f069623",
+    "asset_id": "64be7f73-35b1-4178-89c2-839fb78ec672",
+    "asset_attribute_id": "7bdab562-a096-4a42-bba1-a27ace920220",
+    "value": "123467",
+    "effective_date": "2016-07-21T11:30:28.211Z",
+    "notes": null,
+    "created_at": "2016-07-21T11:30:28.211Z",
+    "updated_at": "2016-07-21T11:30:28.211Z",
+    "asset_label": "Test Facility 2",
+    "label": "Test 2"
+  },
+  {
+    "id": "c642f239-8aa0-41c2-9ea3-911f4f069624",
+    "asset_id": "64be7f73-35b1-4178-89c2-839fb78ec672",
+    "asset_attribute_id": "7bdab562-a096-4a42-bba1-a27ace920221",
+    "value": "12345678",
+    "effective_date": "2016-07-21T11:30:28.211Z",
+    "notes": null,
+    "created_at": "2016-07-21T11:30:28.211Z",
+    "updated_at": "2016-07-21T11:30:28.211Z",
+    "asset_label": "Test Facility 3",
+    "label": "Test 3"
+  }
+]

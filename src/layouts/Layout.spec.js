@@ -1,25 +1,24 @@
-import React from 'react';
-import { shallow, mount } from 'enzyme';
-import { expect } from 'chai';
-import faker from 'faker';
-import { MemoryRouter } from 'react-router-dom';
-import { sandbox } from 'sinon';
+import { mount } from "enzyme";
+import { Header } from "@ndustrial/nd-react-common";
+import React from "react";
+import { MemoryRouter } from "react-router-dom";
+import NotFound from "../../src/components/NotFound";
+import IndexContainer from "../../src/containers/Index";
+import Layout from "./Layout";
+import contxtService from "../services/contxt";
 
-import { Header } from '@ndustrial/nd-react-common';
-import IndexPage from '../../src/components/pages/IndexPage';
-import NotFoundPage from '../../src/components/pages/NotFoundPage';
-import Layout from '../../src/layouts/Layout';
-
-describe('<Layout/>', function() {
-  let baseAuth;
+describe("layouts/Layout", function() {
+  let baseProps;
 
   beforeEach(function() {
     this.sandbox = sandbox.create();
 
-    baseAuth = {
-      getProfile: this.sandbox.stub().resolves({}),
-      isAuthenticated: this.sandbox.stub(),
-      logOut: this.sandbox.stub()
+    baseProps = {
+      auth: {
+        getProfile: this.sandbox.stub().resolves({}),
+        isAuthenticated: this.sandbox.stub(),
+        logOut: this.sandbox.stub()
+      }
     };
   });
 
@@ -27,28 +26,28 @@ describe('<Layout/>', function() {
     this.sandbox.restore();
   });
 
-  describe('constructor', function() {
+  describe("constructor", function() {
     let layout;
 
     beforeEach(function() {
-      layout = shallow(<Layout auth={baseAuth} />);
+      layout = shallow(<Layout {...baseProps} />);
     });
 
-    it('binds a copy of logout to the instance', function() {
-      expect(layout.instance().auth.logout.name).to.equal('bound logOut');
+    it("binds a copy of logout to the instance", function() {
+      expect(layout.instance().auth.logout.name).to.equal("bound logOut");
     });
 
     it("sets an initial empty profile to the component's state", function() {
-      expect(layout.state('profile')).deep.to.equal({});
+      expect(layout.state("profile")).deep.to.equal({});
     });
   });
 
-  describe('componentDidMount', function() {
-    context('when the user is authenticated', function() {
-      let auth;
+  describe("componentDidMount", function() {
+    context("when the user is authenticated", function() {
       let expectedState;
       let layout;
       let promise;
+      let props;
 
       beforeEach(function() {
         expectedState = {
@@ -58,29 +57,31 @@ describe('<Layout/>', function() {
           }
         };
 
-        auth = {
-          ...baseAuth,
-          getProfile: this.sandbox.stub().resolves({
-            nickname: expectedState.profile.userName,
-            picture: expectedState.profile.profileImage
-          }),
-          isAuthenticated: this.sandbox.stub().returns(true)
+        props = {
+          ...baseProps,
+          auth: {
+            ...baseProps.auth,
+            getProfile: this.sandbox.stub().resolves({
+              nickname: expectedState.profile.userName,
+              picture: expectedState.profile.profileImage
+            }),
+            isAuthenticated: this.sandbox.stub().returns(true)
+          }
         };
 
-        layout = shallow(
-          <Layout auth={auth} />,
-          { disableLifecycleMethods: true }
-        );
+        layout = shallow(<Layout {...props} />, {
+          disableLifecycleMethods: true
+        });
 
         promise = layout.instance().componentDidMount();
       });
 
-      it('checks if the user is authenticated', function() {
-        expect(auth.isAuthenticated.calledOnce).to.be.true;
+      it("checks if the user is authenticated", function() {
+        expect(props.auth.isAuthenticated.calledOnce).to.be.true;
       });
 
       it("gets the user's profile", function() {
-        expect(auth.getProfile.called).to.be.true;
+        expect(props.auth.getProfile.called).to.be.true;
       });
 
       it("sets the user's profile information to the component's state", function() {
@@ -90,66 +91,101 @@ describe('<Layout/>', function() {
       });
     });
 
-    context('when the user is not authenticated', function() {
-      let auth;
+    context("when the user is not authenticated", function() {
+      let props;
 
       beforeEach(function() {
-        auth = {
-          ...baseAuth,
-          isAuthenticated: this.sandbox.stub().returns(false)
+        props = {
+          ...baseProps,
+          auth: {
+            ...baseProps.auth,
+            isAuthenticated: this.sandbox.stub().returns(false)
+          }
         };
 
-        const layout = shallow(
-          <Layout auth={auth} />,
-          { disableLifecycleMethods: true }
-        );
+        const layout = shallow(<Layout {...props} />, {
+          disableLifecycleMethods: true
+        });
         layout.instance().componentDidMount();
       });
 
       it("does not get the user's profile", function() {
-        expect(auth.getProfile.called).to.be.false;
+        expect(props.auth.getProfile.called).to.be.false;
       });
     });
   });
 
-  describe('logOut', function() {
+  describe("logOut", function() {
     beforeEach(function() {
-      const layout = shallow(<Layout auth={baseAuth} />);
+      const layout = shallow(<Layout {...baseProps} />);
       layout.instance().logOut();
     });
 
-    it('starts the log out process', function() {
-      expect(baseAuth.logOut.calledOnce).to.be.true;
+    it("starts the log out process", function() {
+      expect(baseProps.auth.logOut.calledOnce).to.be.true;
     });
   });
 
-  describe('render', function() {
-    it('should render', () => {
-      const wrapper = shallow(<Layout auth={baseAuth} />);
-      expect(wrapper).to.not.be.empty;
+  describe("render", function() {
+    beforeEach(function() {
+      this.sandbox.stub(contxtService.facilities, "getAll").resolves([]);
     });
 
-    it('should include header', function() {
-      const wrapper = shallow(<Layout auth={baseAuth} />);
-      expect(wrapper.find(Header).exists()).to.be.true;
+    it("should include header", function() {
+      const layout = shallow(<Layout {...baseProps} />);
+      const header = layout.find(Header);
+
+      expect(header.exists()).to.be.true;
     });
 
-    it('should include <IndexPage/> on home route', function() {
-      const wrapper = mount(
-        <MemoryRouter initialEntries={[ '/' ]}>
-          <Layout auth={baseAuth} />
+    [
+      {
+        title: "IndexContainer",
+        url: `/`,
+        component: IndexContainer
+      },
+      {
+        title: "NotFound",
+        url: `/404`,
+        component: NotFound
+      }
+    ].forEach(function(route) {
+      describe(route.title, function() {
+        it(`should include <${
+          route.title
+        }/> on ${route.url} route`, function() {
+          const layout = mount(
+            <MemoryRouter initialEntries={[route.url]}>
+              <Layout {...baseProps} />
+            </MemoryRouter>
+          );
+          const component = layout.find(route.component);
+
+          expect(component.exists()).to.be.true;
+        });
+      });
+    });
+
+    it("should include <IndexContainer /> on the home route", function() {
+      const layout = mount(
+        <MemoryRouter initialEntries={["/"]}>
+          <Layout {...baseProps} />
         </MemoryRouter>
       );
-      expect(wrapper.find(IndexPage).exists()).to.be.true;
+      const index = layout.find(IndexContainer);
+
+      expect(index.exists()).to.be.true;
     });
 
-    it('should include <NotFoundPage/> on bad route', function() {
-      const wrapper = mount(
-        <MemoryRouter initialEntries={[ '/404' ]}>
-          <Layout auth={baseAuth} />
+    it("should include <NotFound /> on a non-existent route", function() {
+      const layout = mount(
+        <MemoryRouter initialEntries={["/404"]}>
+          <Layout {...baseProps} />
         </MemoryRouter>
       );
-      expect(wrapper.find(NotFoundPage).exists()).to.be.true;
+      const notFound = layout.find(NotFound);
+
+      expect(notFound.exists()).to.be.true;
     });
   });
 });
