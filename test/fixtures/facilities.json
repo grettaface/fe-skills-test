@@ -16,7 +16,7 @@
     "id": 2,
     "organization": {
       "id": "8675309",
-      "name": "Org 1",
+      "name": "Org 2",
       "createdAt": "2017-09-06T17:43:23.577Z",
       "updatedAt": "2017-09-06T17:43:23.577Z"
     }
@@ -38,7 +38,7 @@
     "id": 4,
     "organization": {
       "id": "8675309",
-      "name": "Org 1",
+      "name": "Org 2",
       "createdAt": "2017-09-06T17:43:23.577Z",
       "updatedAt": "2017-09-06T17:43:23.577Z"
     }
@@ -49,7 +49,7 @@
     "id": 5,
     "organization": {
       "id": "6789",
-      "name": "Org 1",
+      "name": "Org 3",
       "createdAt": "2017-09-06T17:43:23.577Z",
       "updatedAt": "2017-09-06T17:43:23.577Z"
     }
@@ -60,7 +60,7 @@
     "id": 6,
     "organization": {
       "id": "6789",
-      "name": "Org 1",
+      "name": "Org 3",
       "createdAt": "2017-09-06T17:43:23.577Z",
       "updatedAt": "2017-09-06T17:43:23.577Z"
     }
