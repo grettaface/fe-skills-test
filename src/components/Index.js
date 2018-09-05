@@ -1,7 +1,14 @@
 import React from "react";
 import { List, Dropdown } from "@ndustrial/nd-react-common";
+import { PropTypes } from "prop-types";
 
-function Index() {
+function Index({
+  facilities,
+  organizations,
+  onFilter,
+  filteredData,
+  selectedOrganization
+}) {
   return (
     <div className="main">
       <div className="app-information__title">Welcome to the skills test!</div>
@@ -11,9 +18,31 @@ function Index() {
         free to ask questions
       </div>
       {/* Main Content */}
-      <div className="main-content">{/* Code goes here */}</div>
+      <div className="main-content">
+        {/* Org dropdown with callback for filtering */}
+        <Dropdown
+          data={organizations}
+          callback={onFilter}
+          selectedItem={selectedOrganization}
+          name="Select an Organization"
+        />
+
+        {/* Facility list which gets filtered on org change */}
+        <List data={filteredData.length > 0 ? filteredData : facilities} />
+      </div>
     </div>
   );
 }
+
+// This is where my react knowledge is still in development.
+// What is the best practice here? I needed to define types or it failed prop validation.
+
+Index.propTypes = {
+  facilities: PropTypes.any,
+  organizations: PropTypes.any,
+  onFilter: PropTypes.func,
+  filteredData: PropTypes.any,
+  selectedOrganization: PropTypes.any
+};
 
 export default Index;
