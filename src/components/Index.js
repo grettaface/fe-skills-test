@@ -1,7 +1,7 @@
 import React from "react";
 import { List, Dropdown } from "@ndustrial/nd-react-common";
 
-function Index() {
+function Index(props) {
   return (
     <div className="main">
       <div className="app-information__title">Welcome to the skills test!</div>
@@ -11,7 +11,11 @@ function Index() {
         free to ask questions
       </div>
       {/* Main Content */}
-      <div className="main-content">{/* Code goes here */}</div>
+      <div className="main-content">
+        {/* Code goes here */}
+        <List data={props.facilities} />
+        <Dropdown data={props.organizations} callback={props.onChange} />
+      </div>
     </div>
   );
 }
