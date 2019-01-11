@@ -1,74 +1,38 @@
 import React, { Component } from "react";
 import Index from "../components/Index";
 import contxtService from "../services/contxt.js";
-import { find } from "underscore";
 
 class IndexContainer extends Component {
   constructor() {
     super();
     this.state = {
-      facilities: null,
-      filteredFacilities: null,
-      organizations: null
+      facilities: [],
+      filteredFacilities: [],
+      organizations: []
     };
   }
-
-  onChange = event => {
-    console.log("REMOVE event.value", event.value);
-    let filteredFacilities = this.state.facilities.filter(facility => {
-      return facility.organization.id === event.value;
-    });
-
-    this.setState({ filteredFacilities }, () => {
-      console.log(
-        "REMOVE! this.state.filteredFacilities",
-        this.state.filteredFacilities
-      );
-    });
+  onOrgChange = org => {
+    let filteredFacilities = this.state.facilities.filter(
+      facility => facility.organization.id === org.id
+    );
+    this.setState({ filteredFacilities });
   };
-
   componentDidMount() {
     return contxtService.facilities.getAll().then(facilities => {
-      console.log(
-        "%c ---- Sample facilities request loaded with the SDK ---- ",
-        "background: green; color: white"
-      );
-      console.table(facilities);
-
-      let allOrgs = [];
-
-      for (let facility of facilities) {
-        console.log("REMOVE! facility", facility.organization);
-        allOrgs.push(facility.organization);
-      }
-
-      let organizations = [];
-
-      for (let org of allOrgs) {
-        if (
-          !find(organizations, x => {
-            return x.id === org.id;
-          })
-        ) {
-          organizations.push({ id: org.id, label: org.name, value: org.id });
-        }
-      }
-
-      this.setState(
-        { facilities, organizations, filteredFacilities: facilities },
-        () => {
-          return facilities;
-        }
-      );
+      let organizations = contxtService.organizations.getUniques(facilities);
+      this.setState({
+        facilities,
+        filteredFacilities: facilities,
+        organizations
+      });
     });
   }
-
   render() {
-    return this.state.facilities ? (
+    return this.state.facilities.length > 0 ? (
       <Index
         facilities={this.state.filteredFacilities}
         organizations={this.state.organizations}
-        onChange={this.onChange}
+        onOrgChange={this.onOrgChange}
       />
     ) : (
       "... Loading"
