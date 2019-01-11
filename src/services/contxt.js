@@ -8,6 +8,23 @@ const contxtSDK = {
       });
     }
   },
+  organizations: {
+    getUniques: function(facilities) {
+      let organizations = [];
+      for (let facility of facilities) {
+        if (
+          !organizations.find(org => {
+            return org.id === facility.organization.id;
+          })
+        ) {
+          facility.organization.label = facility.organization.name;
+          facility.organization.value = facility.organization.id;
+          organizations.push(facility.organization);
+        }
+      }
+      return organizations;
+    }
+  },
   auth: {
     isAuthenticated: function() {
       return true;
